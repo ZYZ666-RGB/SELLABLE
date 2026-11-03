@@ -7,6 +7,7 @@
     sellable-mcp orders
     sellable-mcp audit verify
     sellable-mcp config          # prints the MCP client config snippet
+    sellable-mcp --version       # prints mcp_server.server.SERVER_INFO["version"]
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ import json
 import shutil
 
 from mcp_server import store
+from mcp_server.server import SERVER_INFO
 
 
 def _print(obj) -> None:
@@ -23,6 +25,10 @@ def _print(obj) -> None:
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(prog="sellable-mcp")
+    # action="version" exits during parsing, so this works with no subcommand
+    # even though the subparsers below are required.
+    ap.add_argument("--version", action="version",
+                    version=f"%(prog)s {SERVER_INFO['version']}")
     sub = ap.add_subparsers(dest="cmd", required=True)
     m = sub.add_parser("mission").add_subparsers(dest="action", required=True)
     new = m.add_parser("new", help="sign a new mission with your local key")

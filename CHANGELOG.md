@@ -8,6 +8,10 @@ on PyPI as `sellable-mcp`.
 
 ## [Unreleased]
 
+### Added
+- `sellable-mcp --version` prints the version the MCP server reports
+  (`SERVER_INFO` in `mcp_server/server.py`).
+
 ## [2.0.0] - 2026-11-03
 
 First release published to PyPI. The code is the MCP server line that the
